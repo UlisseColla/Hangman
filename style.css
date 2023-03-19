@@ -1,0 +1,43 @@
+
+h5 {
+    font-size: 300%;
+}
+
+.letter {
+    padding: 15px;
+    margin: 10px;
+    border: 2px black solid;
+    border-radius: 20px;
+    width: auto;
+    height: auto;
+}
+
+.impiccato {
+    height: 60vh;
+}
+
+.guess-word {
+    height: 10vh;
+}
+
+.create-word {
+    height: 5vh;
+}
+.btn-create {
+    border: 1px solid black;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.btn-create:hover {
+    transform: scale(1.1);
+}
+
+.wrapper-words {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.guess-word-div {
+    padding: 10px;
+}
