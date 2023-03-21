@@ -1,6 +1,24 @@
 
+:root{
+    --blue: rgb(16, 44, 71);
+    --white: rgb(246, 246, 246);
+    --yellow: rgb(246, 225, 75);
+    --yellow-light: rgba(246, 225, 75, 0.3);
+    --yellow-starker: rgba(246, 225, 75, 0.7);
+}
+
+body {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
 h5 {
     font-size: 300%;
+    /* opacity: 0; */
+}
+
+p {
+    color: var(--yellow);
 }
 
 .letter {
@@ -12,24 +30,30 @@ h5 {
     height: auto;
 }
 
-.impiccato {
-    height: 60vh;
-}
+/* .impiccato {
+    height: 50vh;
+} */
 
 .guess-word {
     height: 10vh;
 }
 
 .create-word {
-    height: 5vh;
+    height: 10vh;
 }
 .btn-create {
-    border: 1px solid black;
+    margin-top: 25px;
+    padding: 10px;
+    width: 70%;
+    /* border: 1px solid var(--yellow); */
+    color: var(--blue);
+    background-color: var(--yellow-starker);
+    border-radius: 20px;
     cursor: pointer;
     transition: 0.5s;
 }
 .btn-create:hover {
-    transform: scale(1.1);
+    background-color: var(--yellow);
 }
 
 .wrapper-words {
@@ -39,5 +63,12 @@ h5 {
 }
 
 .guess-word-div {
-    padding: 10px;
+    margin: 10px;
+    width: 60px;
+    text-align: center;
+    border-bottom: 5px solid var(--white);
 }
+
+.a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .w, .x, .y, .z, .v {
+    opacity: 0;
+} 
