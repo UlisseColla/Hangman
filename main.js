@@ -28,7 +28,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
             check = false;
         } 
     })
-
+    
     /* Tastiera */
     let letters = document.querySelectorAll('.display-6');
     let word_to_check = [];
@@ -36,24 +36,28 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     letters.forEach((letter) => {
         letter.addEventListener('click', () => {
             if(splitted.includes(letter.innerText)){
-                word_to_check.push(letter.innerText);
                 let h5 = document.querySelectorAll('h5');
-                console.log(h5);
                 h5.forEach((element) => {
                     if(element.classList[0] == letter.innerText){
                         element.style.opacity = "1";
-                    } else {
-                        console.log('nope');
-                    }
+                        word_to_check.push(letter.innerText);
+                        console.log(word_to_check);
+                        correct_letter(letter);
+                    } 
                 })
-                
-                
             } else {
-                console.log('nope');
+                wrong_letter(letter);
             }
         })
     })
-    
-    
+
+    /* Funzione parola sbagliata */
+    function wrong_letter(letter){
+        letter.innerHTML = `<i class="fa-solid fa-skull-crossbones"></i>`;
+    }
+
+    function correct_letter(letter) {
+        letter.innerHTML = `<i class="fa-solid fa-check"></i>`;
+    }
 });
 
