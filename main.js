@@ -7,6 +7,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     const btn_create = document.querySelector('.btn-create');
     const wrapper_words = document.querySelector('.wrapper-words');
     
+    let win = document.querySelector('#win');
     let check = true;
     let random_number = Math.floor(Math.random() * (1000 - 0) + 0);
     let random_word = arr[random_number];
@@ -21,7 +22,6 @@ fetch('data.json').then((response) => response.json()).then((json) => {
                 div.classList.add('guess-word-div');
                 console.log(div);
                 div.innerHTML = "<h5 class=" + element +  ">" + element + "</h5>";
-                console.log(splitted);
                 wrapper_words.appendChild(div);
             });
             
@@ -32,6 +32,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     /* Tastiera */
     let letters = document.querySelectorAll('.display-6');
     let word_to_check = [];
+    let counter = 0;
     
     letters.forEach((letter) => {
         letter.addEventListener('click', () => {
@@ -41,23 +42,29 @@ fetch('data.json').then((response) => response.json()).then((json) => {
                     if(element.classList[0] == letter.innerText){
                         element.style.opacity = "1";
                         word_to_check.push(letter.innerText);
-                        console.log(word_to_check);
-                        correct_letter(letter);
+                        console.log(splitted);
+                        if(splitted.length == word_to_check.length){
+                            console.log('win');
+                            win_game();
+                        }
                     } 
                 })
             } else {
                 wrong_letter(letter);
+                counter++;
             }
         })
     })
-
+    
+    
+    
     /* Funzione parola sbagliata */
     function wrong_letter(letter){
         letter.innerHTML = `<i class="fa-solid fa-skull-crossbones"></i>`;
     }
-
-    function correct_letter(letter) {
-        letter.innerHTML = `<i class="fa-solid fa-check"></i>`;
+    
+    function win_game() {
+        win.classList.remove("d-none");
     }
 });
 
