@@ -8,11 +8,18 @@
     --red: rgb(213, 33, 46);
     --red-light: rgba(213, 33, 46, 0.3);
     --red-starker: rgba(213, 33, 46, 0.7); 
+    --purple: rgb(101, 55, 128);
+    --purple-light: rgba(101, 55, 128, 0.4);
+}
+
+.white {
+    color: var(--white);
 }
 
 body {
     background-color: var(--blue);
     color: var(--white);
+    overflow-x: hidden;
 }
 
 h5 {
@@ -30,15 +37,15 @@ p {
     border-radius: 20px;
     width: auto;
     height: auto;
+    cursor: pointer;
 }
 
-/* .guess-word {
-    height: 10vh;
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.create-word {
-    height: 10vh;
-} */
 .btn-create {
     margin-top: 25px;
     padding: 10px;
@@ -102,6 +109,22 @@ p {
     align-items: center;
 }
 
+#insert {
+    width: 100%;
+    height: 100%;
+    background-color: var(--purple-light);
+    backdrop-filter: blur(10px);
+    color: var(--yellow);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn-play-again {
     border: 1px solid var(--blue);
     color: var(--blue);
@@ -110,4 +133,10 @@ p {
 }
 .btn-play-again:hover {
     background-color: var(--blue);
+}
+
+.custom-input {
+    width: 25%;
+    background-color: var(--purple-light);
+    border-radius: 10px;
 }

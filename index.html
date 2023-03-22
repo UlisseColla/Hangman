@@ -15,10 +15,10 @@
     <!-- Figura impiccato e alfabeto-->
     <section class="impiccato">
         <div class="row">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-7">
                 
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 mt-3">
                 <!-- alfabeto -->
                 <div class="row justify-content-center">
                     <div class="letter">
@@ -120,14 +120,14 @@
     <!-- Bottone genera parola -->
     <section class="create-word my-3">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-4">
-                <div class="btn-create text-center">
+            <div class="col-12 col-md-4 text-center centered">
+                <div class="btn-create">
                     <h4 class="p-0 m-0 text-center">Genera parola</h4>
                 </div>
             </div>
-            <div class="col-12 col-md-4">
-                <div class="btn-create text-center">
-                    <h4 class="p-0 m-0 text-center">Inserisci parola</h4>
+            <div class="col-12 col-md-4 text-center centered">
+                <div class="btn-create">
+                    <h4 class="p-0 m-0 text-center" id="insert_btn">Inserisci parola</h4>
                 </div>
             </div>
         </div>
@@ -152,7 +152,14 @@
             <p class="display-6 m-0 p-4">Gioca ancora</p>
         </div>
     </div>
-    
+
+    <!-- Modale inserimento parola -->
+    <div id="insert" class="d-none">
+        <p class="lead white">Inserisci qui la parola o frase da indovinare:</p>
+        <input type="text" class="custom-input" id="inserted_word">
+        <button type="submit" class="custom-input mt-3 white" id="btn_invia">Invia</button>
+    </div>
+
     <!-- JS Fontawesome -->
     <script src="https://kit.fontawesome.com/89039d3942.js" crossorigin="anonymous"></script>
     <!-- Custom JS -->
