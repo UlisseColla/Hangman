@@ -8,6 +8,8 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     const wrapper_words = document.querySelector('.wrapper-words');
     
     let win = document.querySelector('#win');
+    let lost = document.querySelector('#lost');
+    let missedWord = document.querySelector('#missedWord');
     let check = true;
     let random_number = Math.floor(Math.random() * (1000 - 0) + 0);
     let random_word = arr[random_number];
@@ -29,7 +31,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
         } 
     })
     
-    /* Tastiera */
+    /* Tastiera e completamento parola*/
     let letters = document.querySelectorAll('.display-6');
     let word_to_check = [];
     let counter = 0;
@@ -52,6 +54,9 @@ fetch('data.json').then((response) => response.json()).then((json) => {
             } else {
                 wrong_letter(letter);
                 counter++;
+                if (counter >= 6){
+                    lost_game();
+                }
             }
         })
     })
@@ -65,6 +70,11 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     
     function win_game() {
         win.classList.remove("d-none");
+    }
+
+    function lost_game() {
+        lost.classList.remove('d-none');
+        missedWord.innerText = "La parola è: " + random_word;
     }
 });
 
