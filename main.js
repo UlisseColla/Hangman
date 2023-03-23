@@ -18,10 +18,8 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let random_number = Math.floor(Math.random() * (1000 - 0) + 0);
     let random_word = arr[random_number];
     let splitted = random_word.split('');
-
-    /* let checkInsert = false; */
     
-    /* Creazione parola da indovinare */
+    /* Creazione parola da indovinare CPU */
     btn_create.addEventListener('click', () => {
         if(check){
             
@@ -36,24 +34,32 @@ fetch('data.json').then((response) => response.json()).then((json) => {
             check = false;
         } 
     })
-
     
+    /* Comparsa modale inserimento parola */
     insert_btn.addEventListener('click', () => {
-        /* checkInsert = true; */
         insert.classList.toggle('d-none');
     })
     
-    /* Creazione parola da indovinare da inserimento */
+    /* Creazione parola tramite inserimento */
     btn_invia.addEventListener('click', () => {
+        checkCPU = false;
         insert.classList.toggle('d-none');
         console.log(inserted_word.value.split(''));
-
-        inserted_word.value.split('').forEach(element => {
+        
+        inserted_word.value.split('').forEach((element, i) => {
+            
             let div = document.createElement('div');
-            div.classList.add('guess-word-div');
-            console.log(div);
-            div.innerHTML = "<h5 class=" + element +  ">" + element + "</h5>";
-            wrapper_words.appendChild(div);
+            
+            if(inserted_word.value.split('')[i] == ' '){
+                div.classList.add('guess-word-no-border');
+                wrapper_words.appendChild(div);
+            } else {
+                console.log(div);
+                div.classList.add('guess-word-div');
+                div.innerHTML = "<h5 class=" + element +  ">" + element + "</h5>";
+                wrapper_words.appendChild(div);
+            } 
+            
         });
     })
     
@@ -61,80 +67,66 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let letters = document.querySelectorAll('.display-6');
     let word_to_check = [];
     let counter = 0;
+    let checkCPU = true;
     
     letters.forEach((letter) => {
-
+        
         letter.addEventListener('click', () => {
+            
+        if(checkCPU){ /* Contro CPU */
+            check_parola(letter, splitted);
+        } else { /* Due giocatori */
+            check_parola(letter, inserted_word.value.split(''));
+    }
+    
+})
 
-            if(!checkInsert){
+})
 
-                if(splitted.includes(letter.innerText)){
-                    let h5 = document.querySelectorAll('h5');
-                    h5.forEach((element) => {
-                        if(element.classList[0] == letter.innerText){
-                            element.style.opacity = "1";
-                            word_to_check.push(letter.innerText);
-                            console.log(splitted);
-                            if(splitted.length == word_to_check.length){
-                                console.log('win');
-                                win_game();
-                            }
-                        } 
-                    })
-                } else {
-                    wrong_letter(letter);
-                    counter++;
-                    if (counter >= 6){
-                        lost_game();
-                    }
+
+
+/* Funzione parola sbagliata */
+function wrong_letter(letter){
+    letter.innerHTML = `<i class="fa-solid fa-skull-crossbones"></i>`;
+}
+
+/* Funzione vittoria */
+function win_game() {
+    win.classList.remove("d-none");
+}
+
+/* Funzione sconfitta */
+function lost_game() {
+    lost.classList.remove('d-none');
+    missedWord.innerText = "La parola è: " + random_word;
+}
+
+/* Logica check tasti */
+function check_parola (letter, splitted_arr){
+    /* Filtra array togliendo spazi vuoti */
+    let splitted_arr_filtered = splitted_arr.filter(single_letter => single_letter !== ' ');
+    
+    if(splitted_arr_filtered.includes(letter.innerText)){
+        let h5 = document.querySelectorAll('h5');
+        h5.forEach((element) => {
+            if(element.classList[0] == letter.innerText){
+                element.style.opacity = "1";
+                word_to_check.push(letter.innerText);
+                console.log(splitted_arr);
+                if(splitted_arr_filtered.length == word_to_check.length){
+                    win_game();
                 }
-
-            } else {
-
-                if(arrInsert.includes(letter.innerText)){
-                    let h5 = document.querySelectorAll('h5');
-                    h5.forEach((element) => {
-                        if(element.classList[0] == letter.innerText){
-                            element.style.opacity = "1";
-                            word_to_check.push(letter.innerText);
-                            console.log(arrInsert);
-                            if(arrInsert.length == word_to_check.length){
-                                console.log('win');
-                                win_game();
-                            }
-                        } 
-                    })
-                } else {
-                    wrong_letter(letter);
-                    counter++;
-                    if (counter >= 6){
-                        lost_game();
-                    }
-                }
-
-            }
-
+            } 
         })
+    } else {
+        wrong_letter(letter);
+        counter++;
+        if (counter >= 6){
+            lost_game();
+        }
+    }
+}
 
-    })
-    
-    
-    
-    /* Funzione parola sbagliata */
-    function wrong_letter(letter){
-        letter.innerHTML = `<i class="fa-solid fa-skull-crossbones"></i>`;
-    }
-    
-    /* Funzione vittoria */
-    function win_game() {
-        win.classList.remove("d-none");
-    }
-    
-    /* Funzione sconfitta */
-    function lost_game() {
-        lost.classList.remove('d-none');
-        missedWord.innerText = "La parola è: " + random_word;
-    }
-    
+
 });
 
