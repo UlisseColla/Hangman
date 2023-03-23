@@ -18,9 +18,15 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let random_number = Math.floor(Math.random() * (1000 - 0) + 0);
     let random_word = arr[random_number];
     let splitted = random_word.split('');
+    let insert_col = document.querySelector('#insert_col');
+    let create_col = document.querySelector('#create_col');
+    let btn_play_again = document.querySelectorAll('.btn-play-again');
     
     /* Creazione parola da indovinare CPU */
     btn_create.addEventListener('click', () => {
+        /* Scomparsa bottone a seconda della modalità di gioco scelta */
+        insert_col.classList.toggle('d-none');
+        
         if(check){
             
             splitted.forEach(element => {
@@ -35,9 +41,11 @@ fetch('data.json').then((response) => response.json()).then((json) => {
         } 
     })
     
+    
     /* Comparsa modale inserimento parola */
     insert_btn.addEventListener('click', () => {
         insert.classList.toggle('d-none');
+        create_col.classList.toggle('d-none');
     })
     
     /* Creazione parola tramite inserimento */
@@ -73,16 +81,15 @@ fetch('data.json').then((response) => response.json()).then((json) => {
         
         letter.addEventListener('click', () => {
             
-        if(checkCPU){ /* Contro CPU */
+            if(checkCPU){ /* Contro CPU */
             check_parola(letter, splitted);
         } else { /* Due giocatori */
-            check_parola(letter, inserted_word.value.split(''));
+        check_parola(letter, inserted_word.value.split(''));
     }
     
 })
 
 })
-
 
 
 /* Funzione parola sbagliata */
@@ -100,6 +107,43 @@ function lost_game() {
     lost.classList.remove('d-none');
     missedWord.innerText = "La parola è: " + random_word;
 }
+
+/* Funzione gioca ancora */
+function play_again() {
+    win.classList.add("d-none");
+    lost.classList.add('d-none');
+    create_col.classList.remove('d-none');
+    insert_col.classList.remove('d-none');
+    inserted_word.value = [];
+    random_word = [];
+    word_to_check = [];
+    check = true;
+    checkCPU = true;
+
+    /* Ricomponi tastiera senza teschi */
+    letters.forEach((element) => {
+        element.innerHTML = `<p class="display-6 p-0 m-0">` + element.id + "</p>";
+    })
+
+    /* Rimouvi parola */
+    let remove_words_cpu = document.querySelectorAll('.guess-word-div');
+    let remove_words_spaces = document.querySelectorAll('.guess-word-no-border');
+
+    remove_words_cpu.forEach((word) => {
+        word.remove();
+    })
+
+    remove_words_spaces.forEach((word) => {
+        word.remove();
+    })
+}
+
+btn_play_again.forEach((element) => {
+    element.addEventListener('click', () => {
+        play_again();
+    })
+})
+
 
 /* Logica check tasti */
 function check_parola (letter, splitted_arr){
