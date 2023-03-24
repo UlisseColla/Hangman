@@ -66,7 +66,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     /* Creazione parola tramite inserimento */
     btn_invia.addEventListener('click', () => {
         
-        if (containsSpecialChars(inserted_word.value)) {
+        if (containsSpecialChars(inserted_word.value) || inserted_word.value.split('').length >= 50) {
             banner_spec_char.classList.remove('d-none');
         } else {
             banner_spec_char.classList.add('d-none');
@@ -97,7 +97,8 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     })
     
     /* Tastiera e completamento parola*/
-    let letters = document.querySelectorAll('.display-6');
+    let letters_p = document.querySelectorAll('.display-6');
+    let letters = document.querySelectorAll('.letter');
     let word_to_check = [];
     let counter = 0;
     let checkCPU = true;
@@ -105,22 +106,17 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     letters.forEach((letter) => {
         
         letter.addEventListener('click', () => {
+            console.log(letter.id);
             
             if(checkCPU){ /* Contro CPU */
-            check_parola(letter, splitted);
+            check_parola(letter.id, splitted);
         } else { /* Due giocatori */
-        check_parola(letter, inserted_word_lc.split(''));
+        check_parola(letter.id, inserted_word_lc.split(''));
     }
     
 })
 
 })
-
-
-/* Funzione parola sbagliata */
-function wrong_letter(letter){
-    letter.innerHTML = `<i class="fa-solid fa-skull-crossbones"></i>`;
-}
 
 /* Funzione vittoria */
 function win_game() {
@@ -147,7 +143,7 @@ function play_again() {
     counter = 0;
     
     /* Ricomponi tastiera senza teschi */
-    letters.forEach((element) => {
+    letters_p.forEach((element) => {
         element.innerHTML = `<p class="display-6 p-0 m-0">` + element.id + "</p>";
     })
     
@@ -176,12 +172,12 @@ function check_parola (letter, splitted_arr){
     /* Filtra array togliendo spazi vuoti */
     let splitted_arr_filtered = splitted_arr.filter(single_letter => single_letter !== ' ');
     
-    if(splitted_arr_filtered.includes(letter.innerText)){
+    if(splitted_arr_filtered.includes(letter)){
         let h5 = document.querySelectorAll('h5');
         h5.forEach((element) => {
-            if(element.classList[0] == letter.innerText){
+            if(element.classList[0] == letter){
                 element.style.opacity = "1";
-                word_to_check.push(letter.innerText);
+                word_to_check.push(letter);
                 console.log(splitted_arr);
                 if(splitted_arr_filtered.length == word_to_check.length){
                     win_game();
@@ -195,6 +191,15 @@ function check_parola (letter, splitted_arr){
             lost_game();
         }
     }
+}
+
+/* Funzione parola sbagliata */
+function wrong_letter(letter){
+    letters_p.forEach((letter_to_check) => {
+        if(letter_to_check.id == letter){
+            letter_to_check.innerHTML = `<i class="fa-solid fa-skull-crossbones"></i>`;
+        }
+    })
 }
 
 /* Check per caratteri spaciali e numeri */
