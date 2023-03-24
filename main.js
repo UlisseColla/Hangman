@@ -37,6 +37,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     
     /* Creazione parola da indovinare CPU */
     btn_create.addEventListener('click', () => {
+        check_tastiera = true;
         /* Scomparsa bottone a seconda della modalità di gioco scelta */
         insert_col.classList.toggle('d-none');
         
@@ -65,6 +66,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     
     /* Creazione parola tramite inserimento */
     btn_invia.addEventListener('click', () => {
+        check_tastiera = true;
         
         if (containsSpecialChars(inserted_word.value) || inserted_word.value.split('').length >= 50) {
             banner_spec_char.classList.remove('d-none');
@@ -91,7 +93,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
             });
             
             return inserted_word_lc;
-
+            
         }
         
     })
@@ -102,16 +104,27 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let word_to_check = [];
     let counter = 0;
     let checkCPU = true;
+    let check_tastiera = false;
+    let check_tastiera_btn = document.querySelector('#check_tastiera');
+    let dismiss = document.querySelector('.dismiss');
+
+    dismiss.addEventListener('click', () => {
+        check_tastiera_btn.classList.add('d-none');
+    })
     
     letters.forEach((letter) => {
         
+        
         letter.addEventListener('click', () => {
-            console.log(letter.id);
             
-            if(checkCPU){ /* Contro CPU */
-            check_parola(letter.id, splitted);
-        } else { /* Due giocatori */
-        check_parola(letter.id, inserted_word_lc.split(''));
+            if(!check_tastiera){
+                check_tastiera_btn.classList.remove('d-none');
+            } else {
+                if(checkCPU){ /* Contro CPU */
+                check_parola(letter.id, splitted);
+            } else { /* Due giocatori */
+            check_parola(letter.id, inserted_word_lc.split(''));
+        }
     }
     
 })
