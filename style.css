@@ -131,7 +131,7 @@ p {
 }
 
 .btn-play-again {
-    border: 1px solid var(--blue);
+    border: 1px solid var(--yellow);
     color: var(--blue);
     cursor: pointer;
     border-radius: 50px;

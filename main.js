@@ -1,5 +1,6 @@
 fetch('data.json').then((response) => response.json()).then((json) => {
     
+    /* File lista parole */
     const words = json.words;
     const arr = words.split('\n');
     
@@ -7,26 +8,41 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     const btn_create = document.querySelector('.btn-create');
     const wrapper_words = document.querySelector('.wrapper-words');
     
+    /* Bottoni */
+    let btn_play_again = document.querySelectorAll('.btn-play-again');
     let btn_invia = document.querySelector('#btn_invia');
+    /* Schermate win e lost */
     let win = document.querySelector('#win');
     let lost = document.querySelector('#lost');
-    let insert = document.querySelector('#insert');
     let missedWord = document.querySelector('#missedWord');
-    let insert_btn = document.querySelector('#insert_btn');
-    let inserted_word = document.querySelector('#inserted_word');
-    let check = true;
-    let random_number = Math.floor(Math.random() * (1000 - 0) + 0);
-    let random_word = arr[random_number];
-    let splitted = random_word.split('');
+    /* Inserimento parola */
     let insert_col = document.querySelector('#insert_col');
     let create_col = document.querySelector('#create_col');
-    let btn_play_again = document.querySelectorAll('.btn-play-again');
+    let insert = document.querySelector('#insert');
+    let insert_btn = document.querySelector('#insert_btn');
+    let inserted_word = document.querySelector('#inserted_word');
+    let check = true;   
+
+    let splitted = [];
+    let random_word;
     
+    /* Scelta parola dalla lista */
+    function random_word_create() {
+        let random_number = Math.floor(Math.random() * (1000 - 0) + 0);
+        random_word = arr[random_number];
+        splitted = random_word.split('');
+        return splitted;
+        return random_word;
+        console.log(splitted);
+    }
+
     /* Creazione parola da indovinare CPU */
     btn_create.addEventListener('click', () => {
         /* Scomparsa bottone a seconda della modalità di gioco scelta */
         insert_col.classList.toggle('d-none');
         
+        random_word_create();
+
         if(check){
             
             splitted.forEach(element => {
@@ -105,7 +121,7 @@ function win_game() {
 /* Funzione sconfitta */
 function lost_game() {
     lost.classList.remove('d-none');
-    missedWord.innerText = "La parola è: " + random_word;
+    missedWord.innerText = "La parola era: " + (checkCPU? random_word : inserted_word.value); 
 }
 
 /* Funzione gioca ancora */
@@ -119,20 +135,21 @@ function play_again() {
     word_to_check = [];
     check = true;
     checkCPU = true;
-
+    counter = 0;
+    
     /* Ricomponi tastiera senza teschi */
     letters.forEach((element) => {
         element.innerHTML = `<p class="display-6 p-0 m-0">` + element.id + "</p>";
     })
-
+    
     /* Rimouvi parola */
     let remove_words_cpu = document.querySelectorAll('.guess-word-div');
     let remove_words_spaces = document.querySelectorAll('.guess-word-no-border');
-
+    
     remove_words_cpu.forEach((word) => {
         word.remove();
     })
-
+    
     remove_words_spaces.forEach((word) => {
         word.remove();
     })
