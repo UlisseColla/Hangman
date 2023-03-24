@@ -141,7 +141,21 @@ p {
 }
 
 .custom-input {
-    width: 25%;
+    height: 7%;
+    width: 40%;
     background-color: var(--purple-light);
     border-radius: 10px;
+    font-size: 190%;
+}
+
+
+
+#banner_spec_char {
+    margin-top: 15px;
+    padding: 15px;
+    border: 2px solid var(--red);
+    border-radius: 15px;
+    color: var(--white);
+    background-color: var(--red-light);
+    width: 40%;
 }

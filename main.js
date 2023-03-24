@@ -21,8 +21,9 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let insert = document.querySelector('#insert');
     let insert_btn = document.querySelector('#insert_btn');
     let inserted_word = document.querySelector('#inserted_word');
+    let inserted_word_lc;
     let check = true;   
-
+    let banner_spec_char = document.querySelector('#banner_spec_char');
     let splitted = [];
     let random_word;
     
@@ -31,24 +32,21 @@ fetch('data.json').then((response) => response.json()).then((json) => {
         let random_number = Math.floor(Math.random() * (1000 - 0) + 0);
         random_word = arr[random_number];
         splitted = random_word.split('');
-        return splitted;
-        return random_word;
-        console.log(splitted);
+        return splitted, random_word;
     }
-
+    
     /* Creazione parola da indovinare CPU */
     btn_create.addEventListener('click', () => {
         /* Scomparsa bottone a seconda della modalità di gioco scelta */
         insert_col.classList.toggle('d-none');
         
         random_word_create();
-
+        
         if(check){
             
             splitted.forEach(element => {
                 let div = document.createElement('div');
                 div.classList.add('guess-word-div');
-                console.log(div);
                 div.innerHTML = "<h5 class=" + element +  ">" + element + "</h5>";
                 wrapper_words.appendChild(div);
             });
@@ -64,27 +62,38 @@ fetch('data.json').then((response) => response.json()).then((json) => {
         create_col.classList.toggle('d-none');
     })
     
+    
     /* Creazione parola tramite inserimento */
     btn_invia.addEventListener('click', () => {
-        checkCPU = false;
-        insert.classList.toggle('d-none');
-        console.log(inserted_word.value.split(''));
         
-        inserted_word.value.split('').forEach((element, i) => {
+        if (containsSpecialChars(inserted_word.value)) {
+            banner_spec_char.classList.remove('d-none');
+        } else {
+            banner_spec_char.classList.add('d-none');
+            checkCPU = false;
+            insert.classList.toggle('d-none');
+            inserted_word_lc = inserted_word.value.toLowerCase();
             
-            let div = document.createElement('div');
+            inserted_word_lc.split('').forEach((element, i) => {
+                
+                let div = document.createElement('div');
+                
+                if(inserted_word_lc.split('')[i] == ' '){
+                    div.classList.add('guess-word-no-border');
+                    wrapper_words.appendChild(div);
+                } else {
+                    div.classList.add('guess-word-div');
+                    div.innerHTML = "<h5 class=" + element +  ">" + element + "</h5>";
+                    wrapper_words.appendChild(div);
+                } 
+                
+                
+            });
             
-            if(inserted_word.value.split('')[i] == ' '){
-                div.classList.add('guess-word-no-border');
-                wrapper_words.appendChild(div);
-            } else {
-                console.log(div);
-                div.classList.add('guess-word-div');
-                div.innerHTML = "<h5 class=" + element +  ">" + element + "</h5>";
-                wrapper_words.appendChild(div);
-            } 
-            
-        });
+            return inserted_word_lc;
+
+        }
+        
     })
     
     /* Tastiera e completamento parola*/
@@ -100,7 +109,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
             if(checkCPU){ /* Contro CPU */
             check_parola(letter, splitted);
         } else { /* Due giocatori */
-        check_parola(letter, inserted_word.value.split(''));
+        check_parola(letter, inserted_word_lc.split(''));
     }
     
 })
@@ -188,6 +197,12 @@ function check_parola (letter, splitted_arr){
     }
 }
 
+/* Check per caratteri spaciali e numeri */
+function containsSpecialChars(str) {
+    const specialChars =
+    /[`1!2@3#4$5%6^7&8*9()0_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    return specialChars.test(str);
+}
 
 });
 

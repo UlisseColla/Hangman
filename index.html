@@ -125,12 +125,12 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-4 text-center centered" id="create_col">
                 <div class="btn-create">
-                    <h4 class="p-0 m-0 text-center">Genera parola</h4>
+                    <h4 class="p-0 m-0 text-center">Genera parola casuale</h4>
                 </div>
             </div>
             <div class="col-12 col-md-4 text-center centered" id="insert_col">
                 <div class="btn-create" id="insert_btn">
-                    <h4 class="p-0 m-0 text-center">Inserisci parola</h4>
+                    <h4 class="p-0 m-0 text-center">Inserisci parola o frase</h4>
                 </div>
             </div>
         </div>
@@ -146,7 +146,7 @@
         </div>
     </div>
     <!-- Schermata sconfitta -->
-    <div class="" id="lost">
+    <div class="d-none" id="lost">
         <div class="text-center">
             <h3 class="display-1">Hai perso!</h3>
             <h5 id="missedWord"></h5>
@@ -161,6 +161,10 @@
         <p class="lead white">Inserisci qui la parola o frase da indovinare:</p>
         <input type="text" class="custom-input" id="inserted_word">
         <button type="submit" class="custom-input mt-3 white" id="btn_invia">Invia</button>
+
+        <div id="banner_spec_char" class="centered d-none">
+            <p class="text-center m-0 p-0 lead">I caratteri speciali e i numeri non sono ammessi, riprova</p>
+        </div>
     </div>
 
     <!-- JS Fontawesome -->
