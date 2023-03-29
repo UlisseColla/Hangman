@@ -68,19 +68,54 @@ p {
 
 .guess-word-div {
     margin: 10px;
-    width: 60px;
-    text-align: center;
+    width: 5%;
     border-bottom: 5px solid var(--white);
 }
 
 .guess-word-no-border {
     margin: 10px;
-    width: 60px;
+    width: 5%;
 }
 
 .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
     opacity: 0;
-} 
+}
+
+#regular-screen {
+    display: flex;
+}
+
+#mq-phone {
+    display: none !important;
+}
+
+@media screen and (max-width: 928px){
+    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
+        font-size: 250%;
+    }
+
+    .letter {
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width: 528px){
+    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
+        font-size: 200%;
+    }
+    
+    .letter {
+        padding: 5px;
+    }
+
+    #mq-phone {
+        display: flex;
+    }
+
+    #regular-screen {
+        display: none;
+    }
+}
 
 #win {
     width: 100%;
@@ -88,7 +123,7 @@ p {
     background-color: var(--yellow-light);
     backdrop-filter: blur(10px);
     color: var(--yellow);
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     z-index: 2;
@@ -104,7 +139,7 @@ p {
     background-color: var(--red-light);
     backdrop-filter: blur(10px);
     color: var(--red);
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     z-index: 2;
@@ -120,7 +155,7 @@ p {
     background-color: var(--purple-light);
     backdrop-filter: blur(10px);
     color: var(--yellow);
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     z-index: 2;
@@ -191,4 +226,80 @@ p {
     padding: 10px;
     color: var(--yellow);
     background-color: var(--blue);
+}
+
+#hangman {
+    height: 70vh;
+}
+
+.wrapper-hangman {
+    position: relative;
+    height: 95%;
+    width: 70%;
+    border-bottom: 20px solid var(--yellow);
+}
+
+.hangman {
+    background-color: var(--yellow);
+    position: absolute;
+}
+.structure {
+    bottom: 0px;
+    left: 20%;
+    height: 90%;
+    width: 10px;
+}
+.structure-1 {
+    top: 10%;
+    left: 20%;
+    height: 10px;
+    width: 40%;
+}
+.structure-1_1{
+    top: 10%;
+    left: 60%;
+    height: 15%;
+    width: 2px;
+}
+.head {
+    top: 25%;
+    left: 56.5%;
+    height: 8%;
+    width: 8%;
+    border-radius: 50%;
+}
+.hm-body {
+    top: 34%;
+    left: 56.5%;
+    height: 23%;
+    width: 8%;
+    border-radius: 30px;
+}
+.arms-r {
+    top: 38%;
+    right: 33.5%;
+    height: 13%;
+    width: 7px;
+    border-radius: 7px;
+}
+.arms-l {
+    top: 38%;
+    left: 54.5%;
+    height: 13%;
+    width: 7px;
+    border-radius: 7px;
+}
+.legs-r {
+    top: 58%;
+    right: 37%;
+    height: 19%;
+    width: 10px;
+    border-radius: 7px;
+}
+.legs-l {
+    top: 58%;
+    left: 58%;
+    height: 19%;
+    width: 10px;
+    border-radius: 7px;
 }

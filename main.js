@@ -47,8 +47,8 @@ fetch('data.json').then((response) => response.json()).then((json) => {
             
             splitted.forEach(element => {
                 let div = document.createElement('div');
-                div.classList.add('guess-word-div');
-                div.innerHTML = "<h5 class=" + element +  ">" + element + "</h5>";
+                div.classList.add('guess-word-div', 'centered');
+                div.innerHTML = "<h5 class=" + element + ">" + element + "</h5>";
                 wrapper_words.appendChild(div);
             });
             
@@ -84,8 +84,8 @@ fetch('data.json').then((response) => response.json()).then((json) => {
                     div.classList.add('guess-word-no-border');
                     wrapper_words.appendChild(div);
                 } else {
-                    div.classList.add('guess-word-div');
-                    div.innerHTML = "<h5 class=" + element +  ">" + element + "</h5>";
+                    div.classList.add('guess-word-div', 'centered');
+                    div.innerHTML = "<h5 class= " + element +  ">" + element + "</h5>";
                     wrapper_words.appendChild(div);
                 } 
                 
@@ -107,7 +107,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let check_tastiera = false;
     let check_tastiera_btn = document.querySelector('#check_tastiera');
     let dismiss = document.querySelector('.dismiss');
-
+    
     dismiss.addEventListener('click', () => {
         check_tastiera_btn.classList.add('d-none');
     })
@@ -154,6 +154,9 @@ function play_again() {
     check = true;
     checkCPU = true;
     counter = 0;
+    hangman.forEach((element) => {
+        element.classList.add('d-none');
+    })
     
     /* Ricomponi tastiera senza teschi */
     letters_p.forEach((element) => {
@@ -179,6 +182,16 @@ btn_play_again.forEach((element) => {
     })
 })
 
+/* Variabili hangman */
+const structure = document.querySelector('.structure');
+const structure_1 = document.querySelector('.structure-1');
+const structure_1_1 = document.querySelector('.structure-1_1');
+const head = document.querySelector('.head');
+const body = document.querySelector('.hm-body');
+const arms = document.querySelectorAll('.arms');
+const legs = document.querySelectorAll('.legs');
+const hangman = document.querySelectorAll('.hangman');
+
 
 /* Logica check tasti */
 function check_parola (letter, splitted_arr){
@@ -200,6 +213,36 @@ function check_parola (letter, splitted_arr){
     } else {
         wrong_letter(letter);
         counter++;
+        
+        /* Comparsa hangman */
+        switch(counter){
+            case 1:
+            structure.classList.remove('d-none');
+            break;
+            case 2:
+            structure_1.classList.remove('d-none');
+            structure_1_1.classList.remove('d-none');
+            break;
+            case 3:
+            head.classList.remove('d-none');
+            break;
+            case 4:
+            body.classList.remove('d-none');
+            break;
+            case 5:
+            arms.forEach((arm) => {
+                arm.classList.remove('d-none');
+            });
+            break;
+            case 6:
+            legs.forEach((leg) => {
+                leg.classList.remove('d-none');
+            });
+            break;
+            default:
+            break;
+        }
+        
         if (counter >= 6){
             lost_game();
         }
