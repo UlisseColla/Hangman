@@ -107,10 +107,22 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let check_tastiera = false;
     let check_tastiera_btn = document.querySelector('#check_tastiera');
     let dismiss = document.querySelector('.dismiss');
+    let info = document.querySelector('#info');
+    let info_btn = document.querySelector('.info-btn');
+    let dismiss_info = document.querySelector('.dismiss-info');
     
     dismiss.addEventListener('click', () => {
         check_tastiera_btn.classList.add('d-none');
     })
+
+    info_btn.addEventListener('click', () => {
+        info.classList.remove('d-none');
+    })
+
+    dismiss_info.addEventListener('click', () => {
+        info.classList.add('d-none');
+    })
+
     
     letters.forEach((letter) => {
         
