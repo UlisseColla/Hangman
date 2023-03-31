@@ -37,9 +37,11 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     
     /* Creazione parola da indovinare CPU */
     btn_create.addEventListener('click', () => {
+        try_again.classList.remove('d-none');
         check_tastiera = true;
         /* Scomparsa bottone a seconda della modalità di gioco scelta */
-        insert_col.classList.toggle('d-none');
+        insert_col.classList.add('d-none');
+        create_col.classList.add('d-none');
         
         random_word_create();
         
@@ -60,12 +62,14 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     /* Comparsa modale inserimento parola */
     insert_btn.addEventListener('click', () => {
         insert.classList.toggle('d-none');
+        insert_col.classList.add('d-none');
         create_col.classList.toggle('d-none');
     })
     
     
     /* Creazione parola tramite inserimento */
     btn_invia.addEventListener('click', () => {
+        try_again.classList.remove('d-none');
         check_tastiera = true;
         
         if (containsSpecialChars(inserted_word.value) || inserted_word.value.split('').length >= 50) {
@@ -110,7 +114,15 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let info = document.querySelector('#info');
     let info_btn = document.querySelector('.info-btn');
     let dismiss_info = document.querySelector('.dismiss-info');
+    let try_again = document.querySelector('#try_again');
+
+    /* Ricomincia */
+    try_again.addEventListener('click', ()=> {
+        try_again.classList.add('d-none');
+        play_again();
+    })
     
+    /* Tasti dismiss */
     dismiss.addEventListener('click', () => {
         check_tastiera_btn.classList.add('d-none');
     })
@@ -125,7 +137,6 @@ fetch('data.json').then((response) => response.json()).then((json) => {
 
     
     letters.forEach((letter) => {
-        
         
         letter.addEventListener('click', () => {
             
