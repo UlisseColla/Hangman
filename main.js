@@ -171,6 +171,7 @@ function play_again() {
     lost.classList.add('d-none');
     create_col.classList.remove('d-none');
     insert_col.classList.remove('d-none');
+    try_again.classList.add('d-none');
     inserted_word.value = [];
     random_word = [];
     word_to_check = [];
