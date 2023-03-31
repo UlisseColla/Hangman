@@ -27,6 +27,20 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let splitted = [];
     let random_word;
     
+    /* Tastiera e completamento parola*/
+    let letters_p = document.querySelectorAll('.display-6');
+    let letters = document.querySelectorAll('.letter');
+    let word_to_check = [];
+    let counter = 0;
+    let checkCPU = true;
+    let check_tastiera = false;
+    let check_tastiera_btn = document.querySelector('#check_tastiera');
+    let dismiss = document.querySelector('.dismiss');
+    let info = document.querySelector('#info');
+    let info_btn = document.querySelector('.info-btn');
+    let dismiss_info = document.querySelector('.dismiss-info');
+    let try_again = document.querySelector('#try_again');
+    
     /* Scelta parola dalla lista */
     function random_word_create() {
         let random_number = Math.floor(Math.random() * (1000 - 0) + 0);
@@ -58,14 +72,12 @@ fetch('data.json').then((response) => response.json()).then((json) => {
         } 
     })
     
-    
     /* Comparsa modale inserimento parola */
     insert_btn.addEventListener('click', () => {
         insert.classList.toggle('d-none');
         insert_col.classList.add('d-none');
         create_col.classList.toggle('d-none');
     })
-    
     
     /* Creazione parola tramite inserimento */
     btn_invia.addEventListener('click', () => {
@@ -92,8 +104,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
                     div.innerHTML = "<h5 class= " + element +  ">" + element + "</h5>";
                     wrapper_words.appendChild(div);
                 } 
-                
-                
+                 
             });
             
             return inserted_word_lc;
@@ -102,20 +113,6 @@ fetch('data.json').then((response) => response.json()).then((json) => {
         
     })
     
-    /* Tastiera e completamento parola*/
-    let letters_p = document.querySelectorAll('.display-6');
-    let letters = document.querySelectorAll('.letter');
-    let word_to_check = [];
-    let counter = 0;
-    let checkCPU = true;
-    let check_tastiera = false;
-    let check_tastiera_btn = document.querySelector('#check_tastiera');
-    let dismiss = document.querySelector('.dismiss');
-    let info = document.querySelector('#info');
-    let info_btn = document.querySelector('.info-btn');
-    let dismiss_info = document.querySelector('.dismiss-info');
-    let try_again = document.querySelector('#try_again');
-
     /* Ricomincia */
     try_again.addEventListener('click', ()=> {
         try_again.classList.add('d-none');
@@ -126,15 +123,15 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     dismiss.addEventListener('click', () => {
         check_tastiera_btn.classList.add('d-none');
     })
-
+    
     info_btn.addEventListener('click', () => {
         info.classList.remove('d-none');
     })
-
+    
     dismiss_info.addEventListener('click', () => {
         info.classList.add('d-none');
     })
-
+    
     
     letters.forEach((letter) => {
         
@@ -178,6 +175,8 @@ function play_again() {
     check = true;
     checkCPU = true;
     counter = 0;
+    check_tastiera = false;
+    
     hangman.forEach((element) => {
         element.classList.add('d-none');
     })

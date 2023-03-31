@@ -1,6 +1,6 @@
 
 :root{
-    --blue: rgb(16, 44, 71);
+    --blue: rgb(5, 38, 69);
     --white: rgb(246, 246, 246);
     --yellow: rgb(246, 225, 75);
     --yellow-light: rgba(246, 225, 75, 0.3);
@@ -10,6 +10,7 @@
     --red-starker: rgba(213, 33, 46, 0.7); 
     --purple: rgb(101, 55, 128);
     --purple-light: rgba(101, 55, 128, 0.4);
+    --purple-stronger: rgba(101, 55, 128, 0.6);
 }
 
 .white {
@@ -20,24 +21,36 @@ body {
     background-color: var(--blue);
     color: var(--white);
     overflow-x: hidden;
+    font-family: 'Khand', sans-serif;
+    color: var(--yellow);
 }
 
 h5 {
     font-size: 300%;
+    font-family: 'Khand', sans-serif;
 }
 
-p {
-    color: var(--yellow);
+h1, h2, h3, h4, h6 {
+    font-family: 'Iceland', cursive;
 }
+
+/* p {
+    color: var(--yellow);
+} */
 
 .letter {
     padding: 15px;
     margin: 10px;
-    border: 2px black solid;
+    background-color: var(--yellow-light);
+    border: var(--blue) solid 2px;
     border-radius: 20px;
     width: auto;
     height: auto;
     cursor: pointer;
+}
+.letter:hover {
+    background-color: var(--blue);
+    border: 2px var(--yellow) solid;
 }
 
 .centered {
@@ -101,34 +114,6 @@ p {
 
 #mq-phone {
     display: none !important;
-}
-
-@media screen and (max-width: 928px){
-    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
-        font-size: 250%;
-    }
-
-    .letter {
-        padding: 5px;
-    }
-}
-
-@media screen and (max-width: 528px){
-    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
-        font-size: 200%;
-    }
-    
-    .letter {
-        padding: 5px;
-    }
-
-    #mq-phone {
-        display: flex;
-    }
-
-    #regular-screen {
-        display: none;
-    }
 }
 
 #win {
@@ -196,6 +181,9 @@ p {
 }
 
 .info-wrapper {
+    background-color: var(--purple-stronger);
+    padding: 20px;
+    border-radius: 20px;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -350,4 +338,42 @@ p {
     height: 19%;
     width: 10px;
     border-radius: 7px;
+}
+
+/* Media queery */
+
+@media screen and (max-width: 928px){
+    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
+        font-size: 250%;
+    }
+
+    .letter {
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width: 528px){
+    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
+        font-size: 200%;
+    }
+    
+    .letter {
+        padding: 5px;
+    }
+
+    #mq-phone {
+        display: flex;
+    }
+
+    #regular-screen {
+        display: none;
+    }
+
+    #check_tastiera {
+        width: 60%;
+    }
+
+    #hai_perso {
+        width: 90%;
+    }
 }

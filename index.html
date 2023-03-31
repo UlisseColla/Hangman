@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="mx-0">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,14 +7,18 @@
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gruppo&family=Iceland&family=Josefin+Sans:wght@300;400&family=Khand&family=Megrim&family=Orbitron&family=Philosopher&family=Urbanist:wght@300;400&family=Yeseva+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-    
+
     <!-- Figura impiccato e alfabeto-->
     <section class="impiccato">
-        <div class="row">
+        <div class="row mx-0">
             <div class="col-12 col-lg-7 centered" id="hangman">
                 <div class="wrapper-hangman">
                     <div class="hangman d-none structure"></div>
@@ -36,7 +40,7 @@
             
             <div class="col-12 col-lg-4 mt-3">
                 <!-- alfabeto -->
-                <div class="row justify-content-center p-1">
+                <div class="row justify-content-center p-1 mx-0">
                     <div class="letter" id="a">
                         <p class="display-6 p-0 m-0" id="a">a</p>
                     </div>
@@ -131,9 +135,9 @@
     
     <!-- Parola da indovinare -->
     <section class="my-3">
-        <div class="row">
-            <div class="col-12">
-                <div class="row wrapper-words centered p-3">
+        <div class="row mx-0 px-0">
+            <div class="col-12 mx-0 px-0">
+                <div class="row wrapper-words centered py-3 mx-0">
                     
                 </div>
                 
@@ -143,11 +147,11 @@
     
     <!-- Bottone genera parola -->
     <section class="create-word my-3">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mx-0">
             <!-- Contro CPU -->
             <div class="col-12 col-md-4 text-center centered" id="create_col">
                 <div class="btn-create">
-                    <h4 class="p-0 m-0 text-center">Gioca contro il PC</h4>
+                    <h3 class="p-0 m-0 text-center">Gioca contro il PC</h3>
                 </div>
             </div>
             <!-- Bottone info -->
@@ -157,13 +161,13 @@
             <!-- Multigiocatore -->
             <div class="col-12 col-md-4 text-center centered" id="insert_col">
                 <div class="btn-create" id="insert_btn">
-                    <h4 class="p-0 m-0 text-center">Modalità multigiocatore</h4>
+                    <h3 class="p-0 m-0 text-center">Modalità multigiocatore</h3>
                 </div>
             </div>
             <!-- Bottone ricomincia -->
             <div class="col-12 col-md-4 text-center centered d-none" id="try_again">
                 <div class="btn-create">
-                    <h4 class="p-0 m-0 text-center">Schermata iniziale</h4>
+                    <h3 class="p-0 m-0 text-center">Schermata iniziale</h3>
                 </div>
             </div>
         </div>
@@ -181,7 +185,7 @@
     
     <!-- Schermata sconfitta -->
     <div class="d-none" id="lost">
-        <div class="text-center">
+        <div class="text-center" id="hai_perso">
             <h3 class="display-1">Hai perso!</h3>
             <h5 id="missedWord"></h5>
         </div>
@@ -197,7 +201,7 @@
         <button type="submit" class="custom-input mt-3 white" id="btn_invia">Invia</button>
         
         <div id="banner_spec_char" class="centered d-none">
-            <p class="text-center m-0 p-0 lead">Lunghezza massima ammessa di 50 caratteri, compresi gli spazi. I caratteri speciali e i numeri non sono ammessi, riprova.</p>
+            <p class="text-center m-0 p-0 lead">Lunghezza massima ammessa di <strong>50 caratteri</strong>, compresi gli spazi. I caratteri speciali e i numeri non sono ammessi, riprova.</p>
         </div>
     </div>
     
@@ -215,8 +219,8 @@
     <!-- Modale info -->
     <div class="d-none" id="info">
         <div class="info-wrapper">
-            <p class="text-center white">Cliccando su GIOCA CONTRO IL PC verrà creata una parola a caso dal programma. La modalità MULTIGIOCATORE da invece la possibilità a due o più giocatori di giocare insieme, dando la possibilità a una delle due parti di scegliere la parola o frase da far indovinare all'altra.</p>
-            <p class="text-center">ATTENZIONE: all'inserimento della parola o frase non saranno accettati numeri o caratteri speciali.</p>
+            <p class="text-center white">Cliccando su GIOCA CONTRO IL PC verrà creata una parola a caso dal programma. La modalità MULTIGIOCATORE permette invece a due o più giocatori di giocare insieme, dando la possibilità a una delle due parti di scegliere la parola o frase da far indovinare all'altra.</p>
+            <p class="text-center">ATTENZIONE: all'inserimento della parola o frase non saranno accettati <strong>numeri</strong> o <strong>caratteri speciali</strong>.</p>
             <div class="dismiss-info centered">
                 <p class="p-0 m-0">Chiudi</p>
             </div>
