@@ -1,8 +1,7 @@
 fetch('data.json').then((response) => response.json()).then((json) => {
     
     /* File lista parole */
-    const words = json.words;
-    const arr = words.split('\n');
+    const arr = json.words.split('\n');
     
     /* Lista parole */
     const btn_create = document.querySelector('.btn-create');
@@ -11,10 +10,17 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     /* Bottoni */
     let btn_play_again = document.querySelectorAll('.btn-play-again');
     let btn_invia = document.querySelector('#btn_invia');
+    let check_tastiera_btn = document.querySelector('#check_tastiera');
+    let info_btn = document.querySelector('.info-btn');
+    let dismiss = document.querySelector('.dismiss');
+    let dismiss_info = document.querySelector('.dismiss-info');
+    let try_again = document.querySelector('#try_again');
+
     /* Schermate win e lost */
     let win = document.querySelector('#win');
     let lost = document.querySelector('#lost');
     let missedWord = document.querySelector('#missedWord');
+
     /* Inserimento parola */
     let insert_col = document.querySelector('#insert_col');
     let create_col = document.querySelector('#create_col');
@@ -22,7 +28,8 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let insert_btn = document.querySelector('#insert_btn');
     let inserted_word = document.querySelector('#inserted_word');
     let inserted_word_lc;
-    let check = true;   
+     
+    /* Banner caratteri */
     let banner_spec_char = document.querySelector('#banner_spec_char');
     let splitted = [];
     let random_word;
@@ -32,14 +39,44 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     let letters = document.querySelectorAll('.letter');
     let word_to_check = [];
     let counter = 0;
+    let info = document.querySelector('#info');
+
+    /* Variabili check */
+    let check = true;  
     let checkCPU = true;
     let check_tastiera = false;
-    let check_tastiera_btn = document.querySelector('#check_tastiera');
-    let dismiss = document.querySelector('.dismiss');
-    let info = document.querySelector('#info');
-    let info_btn = document.querySelector('.info-btn');
-    let dismiss_info = document.querySelector('.dismiss-info');
-    let try_again = document.querySelector('#try_again');
+
+    /* Variabili hangman */
+    const structure = document.querySelector('.structure');
+    const structure_1 = document.querySelector('.structure-1');
+    const structure_1_1 = document.querySelector('.structure-1_1');
+    const head = document.querySelector('.head');
+    const body = document.querySelector('.hm-body');
+    const arms = document.querySelectorAll('.arms');
+    const legs = document.querySelectorAll('.legs');
+    const hangman = document.querySelectorAll('.hangman');
+
+    
+
+    /* Tasti dismiss */
+    dismiss.addEventListener('click', () => {
+        check_tastiera_btn.classList.add('d-none');
+    })
+    
+    info_btn.addEventListener('click', () => {
+        info.classList.remove('d-none');
+    })
+    
+    dismiss_info.addEventListener('click', () => {
+        info.classList.add('d-none');
+    })
+
+    /* Check per caratteri spaciali e numeri */
+    function containsSpecialChars(str) {
+        const specialChars =
+        /[`1!2@3#4$5%6^7&8*9()0_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        return specialChars.test(str);
+    }
     
     /* Scelta parola dalla lista */
     function random_word_create() {
@@ -56,7 +93,6 @@ fetch('data.json').then((response) => response.json()).then((json) => {
         /* Scomparsa bottone a seconda della modalità di gioco scelta */
         insert_col.classList.add('d-none');
         create_col.classList.add('d-none');
-        
         random_word_create();
         
         if(check){
@@ -69,8 +105,8 @@ fetch('data.json').then((response) => response.json()).then((json) => {
             });
             
             check = false;
-        } 
-    })
+            } 
+        })
     
     /* Comparsa modale inserimento parola */
     insert_btn.addEventListener('click', () => {
@@ -118,21 +154,66 @@ fetch('data.json').then((response) => response.json()).then((json) => {
         try_again.classList.add('d-none');
         play_again();
     })
-    
-    /* Tasti dismiss */
-    dismiss.addEventListener('click', () => {
-        check_tastiera_btn.classList.add('d-none');
+
+    /* Funzione vittoria */
+    function win_game() {
+        win.classList.remove("d-none");
+    }
+
+    /* Funzione sconfitta */
+    function lost_game() {
+        setTimeout(() => {
+            lost.classList.remove('d-none');
+            missedWord.innerText = "La parola era: " + (checkCPU? random_word : inserted_word.value); 
+        }, 300);
+    }
+
+    /* Bottone gioca ancora */
+    btn_play_again.forEach((element) => {
+        element.addEventListener('click', () => {
+            play_again();
+        })
     })
-    
-    info_btn.addEventListener('click', () => {
-        info.classList.remove('d-none');
-    })
-    
-    dismiss_info.addEventListener('click', () => {
-        info.classList.add('d-none');
-    })
-    
-    
+
+    /* Funzione gioca ancora */
+    function play_again() {
+        win.classList.add("d-none");
+        lost.classList.add('d-none');
+        create_col.classList.remove('d-none');
+        insert_col.classList.remove('d-none');
+        try_again.classList.add('d-none');
+        inserted_word.value = [];
+        random_word = [];
+        word_to_check = [];
+        check = true;
+        checkCPU = true;
+        counter = 0;
+        check_tastiera = false;
+        
+        hangman.forEach((element) => {
+            element.classList.add('d-none');
+        })
+        
+        /* Ricomponi tastiera senza teschi */
+        letters_p.forEach((element) => {
+            element.innerHTML = `<p class="display-6 p-0 m-0">` + element.id + "</p>";
+        })
+        
+        /* Rimuovi parola */
+        let remove_words_cpu = document.querySelectorAll('.guess-word-div');
+        let remove_words_spaces = document.querySelectorAll('.guess-word-no-border');
+        
+        remove_words_cpu.forEach((word) => {
+            word.remove();
+        })
+        
+        remove_words_spaces.forEach((word) => {
+            word.remove();
+        })
+    }
+    /* --- --- --- */
+
+    /* Controlla lettere al click e comparsa banner se il gioco non è ancora partito */
     letters.forEach((letter) => {
         
         letter.addEventListener('click', () => {
@@ -144,149 +225,76 @@ fetch('data.json').then((response) => response.json()).then((json) => {
                 check_parola(letter.id, splitted);
             } else { /* Due giocatori */
             check_parola(letter.id, inserted_word_lc.split(''));
-        }
-    }
-    
-})
-
-})
-
-/* Funzione vittoria */
-function win_game() {
-    win.classList.remove("d-none");
-}
-
-/* Funzione sconfitta */
-function lost_game() {
-    lost.classList.remove('d-none');
-    missedWord.innerText = "La parola era: " + (checkCPU? random_word : inserted_word.value); 
-}
-
-/* Funzione gioca ancora */
-function play_again() {
-    win.classList.add("d-none");
-    lost.classList.add('d-none');
-    create_col.classList.remove('d-none');
-    insert_col.classList.remove('d-none');
-    try_again.classList.add('d-none');
-    inserted_word.value = [];
-    random_word = [];
-    word_to_check = [];
-    check = true;
-    checkCPU = true;
-    counter = 0;
-    check_tastiera = false;
-    
-    hangman.forEach((element) => {
-        element.classList.add('d-none');
-    })
-    
-    /* Ricomponi tastiera senza teschi */
-    letters_p.forEach((element) => {
-        element.innerHTML = `<p class="display-6 p-0 m-0">` + element.id + "</p>";
-    })
-    
-    /* Rimouvi parola */
-    let remove_words_cpu = document.querySelectorAll('.guess-word-div');
-    let remove_words_spaces = document.querySelectorAll('.guess-word-no-border');
-    
-    remove_words_cpu.forEach((word) => {
-        word.remove();
-    })
-    
-    remove_words_spaces.forEach((word) => {
-        word.remove();
-    })
-}
-
-btn_play_again.forEach((element) => {
-    element.addEventListener('click', () => {
-        play_again();
-    })
-})
-
-/* Variabili hangman */
-const structure = document.querySelector('.structure');
-const structure_1 = document.querySelector('.structure-1');
-const structure_1_1 = document.querySelector('.structure-1_1');
-const head = document.querySelector('.head');
-const body = document.querySelector('.hm-body');
-const arms = document.querySelectorAll('.arms');
-const legs = document.querySelectorAll('.legs');
-const hangman = document.querySelectorAll('.hangman');
-
-
-/* Logica check tasti */
-function check_parola (letter, splitted_arr){
-    /* Filtra array togliendo spazi vuoti */
-    let splitted_arr_filtered = splitted_arr.filter(single_letter => single_letter !== ' ');
-    
-    if(splitted_arr_filtered.includes(letter)){
-        let h5 = document.querySelectorAll('h5');
-        h5.forEach((element) => {
-            if(element.classList[0] == letter){
-                element.style.opacity = "1";
-                word_to_check.push(letter);
-                console.log(splitted_arr);
-                if(splitted_arr_filtered.length == word_to_check.length){
-                    win_game();
                 }
-            } 
+            }
+    
         })
-    } else {
-        wrong_letter(letter);
-        counter++;
+
+    })
+
+    /* Logica check tasti */
+    function check_parola (letter, splitted_arr){
+        /* Filtra array togliendo spazi vuoti */
+        let splitted_arr_filtered = splitted_arr.filter(single_letter => single_letter !== ' ');
         
-        /* Comparsa hangman */
-        switch(counter){
-            case 1:
-            structure.classList.remove('d-none');
-            break;
-            case 2:
-            structure_1.classList.remove('d-none');
-            structure_1_1.classList.remove('d-none');
-            break;
-            case 3:
-            head.classList.remove('d-none');
-            break;
-            case 4:
-            body.classList.remove('d-none');
-            break;
-            case 5:
-            arms.forEach((arm) => {
-                arm.classList.remove('d-none');
-            });
-            break;
-            case 6:
-            legs.forEach((leg) => {
-                leg.classList.remove('d-none');
-            });
-            break;
-            default:
-            break;
-        }
-        
-        if (counter >= 6){
-            lost_game();
+        if(splitted_arr_filtered.includes(letter)){
+            let h5 = document.querySelectorAll('h5');
+            h5.forEach((element) => {
+                if(element.classList[0] == letter){
+                    element.style.opacity = "1";
+                    word_to_check.push(letter);
+                    if(splitted_arr_filtered.length == word_to_check.length){
+                        win_game();
+                    }
+                } 
+            })
+        } else {
+            wrong_letter(letter);
+            counter++;
+            
+            /* Comparsa hangman */
+            switch(counter){
+                case 1:
+                structure.classList.remove('d-none');
+                break;
+                case 2:
+                structure_1.classList.remove('d-none');
+                structure_1_1.classList.remove('d-none');
+                break;
+                case 3:
+                head.classList.remove('d-none');
+                break;
+                case 4:
+                body.classList.remove('d-none');
+                break;
+                case 5:
+                arms.forEach((arm) => {
+                    arm.classList.remove('d-none');
+                });
+                break;
+                case 6:
+                legs.forEach((leg) => {
+                    leg.classList.remove('d-none');
+                });
+                break;
+                default:
+                break;
+            }
+            
+            if (counter >= 6){
+                lost_game();
+            }
         }
     }
-}
 
-/* Funzione parola sbagliata */
-function wrong_letter(letter){
-    letters_p.forEach((letter_to_check) => {
-        if(letter_to_check.id == letter){
-            letter_to_check.innerHTML = `<i class="fa-solid fa-skull-crossbones"></i>`;
-        }
-    })
-}
-
-/* Check per caratteri spaciali e numeri */
-function containsSpecialChars(str) {
-    const specialChars =
-    /[`1!2@3#4$5%6^7&8*9()0_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    return specialChars.test(str);
-}
+    /* Funzione parola sbagliata */
+    function wrong_letter(letter){
+        letters_p.forEach((letter_to_check) => {
+            if(letter_to_check.id == letter){
+                letter_to_check.innerHTML = `<i class="fa-solid fa-skull-crossbones"></i>`;
+            }
+        })
+    }
 
 });
 
