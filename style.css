@@ -329,7 +329,7 @@ h1, h2, h3, h4, h6 {
 /* Media queery schermo medio*/
 
 @media screen and (max-width: 928px){
-    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
+    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .ò, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
         font-size: 250%;
     }
 
@@ -341,7 +341,7 @@ h1, h2, h3, h4, h6 {
 /* Media queery telefono */
 
 @media screen and (max-width: 528px){
-    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
+    .a, .à, .b, .c, .d, .f, .e, .g, .h, .i, .j, .k, .l, .m, .n, .o, .ò, .p, .q, .r, .s, .t, .u, .ù, .w, .x, .y, .z, .v {
         font-size: 200%;
     }
     
