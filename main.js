@@ -80,7 +80,7 @@ fetch('data.json').then((response) => response.json()).then((json) => {
     
     /* Scelta parola dalla lista */
     function random_word_create() {
-        let random_number = Math.floor(Math.random() * (1000 - 0) + 0);
+        let random_number = Math.floor(Math.random() * (1159 - 0) + 0);
         random_word = arr[random_number];
         splitted = random_word.split('');
         return splitted, random_word;
